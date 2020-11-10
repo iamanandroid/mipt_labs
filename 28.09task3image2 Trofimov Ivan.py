@@ -1,7 +1,19 @@
 import pygame
+from pygame.draw import *
 import numpy as np
 
 # Constants
+
+# Size of screen and FPS
+x = 800
+y = 800
+FPS = 30
+
+# Scale
+a = 1  # Scale coefficient for an abscissas' axis
+b = 1  # Scale coefficient for an ordinates' axis
+
+# Colors
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -17,91 +29,98 @@ LIGHTBLUE_LAS_2 = (4, 138, 205)
 GREEN_BLACK = (4, 138, 1)
 PINK_LIGHT = (254, 169, 163)
 
-
-def draw_foliage(surface, color, x_0, y_0, radius, num):
-    abs_x = x_0
-    abs_y = y_0
-    for i in range(num // 2 + 2):
-        pygame.draw.circle(surface, color, (x_0 - 20, y_0 + 20), radius)
-        pygame.draw.circle(surface, BLACK, (x_0 - 20, y_0 + 20), radius, 1)
-        x_0 += 10
-    x_0 = abs_x
-    y_0 = abs_y
-    for i in range(num // 2):
-        pygame.draw.circle(surface, color, (x_0 - 10, y_0), radius)
-        pygame.draw.circle(surface, BLACK, (x_0 - 10, y_0), radius, 1)
-        x_0 += 10
-    x_0 = abs_x
-    y_0 = abs_y
-    for i in range(1):
-        pygame.draw.circle(surface, color, (x_0, y_0 - 20), radius)
-        pygame.draw.circle(surface, BLACK, (x_0, y_0 - 20), radius, 1)
-        x_0 += 10
+# Creating a screen and initializing pygame
+screen = pygame.display.set_mode((x, y))
+pygame.init()
 
 
-def draw_tree(surface, x, y, width, height, color, radius_leave, num_leaves):
-    pygame.draw.rect(surface, BLACK, (x, y, width, height))
-    x_0 = x + 10
-    y_0 = y - 10
-    draw_foliage(surface, color, x_0, y_0, radius_leave, num_leaves)
+# Functions
+
+# Draw a tree in particular place (d,e) with a given scale (a,b)
+def draw_tree(d, e, a, b):
+    image_tree = pygame.Surface((int(x * a), int(y * b)), pygame.SRCALPHA)
+    pygame.draw.rect(image_tree, BLACK, (int(a * 40), int(a * 70), int(a * 20), int(100 * a)))
+    circle(image_tree, GREEN_BLACK, (int(a * 30), int(a * 70)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 30), int(a * 70)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 40), int(a * 70)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 40), int(a * 70)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 50), int(a * 70)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 50), int(a * 70)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 60), int(a * 70)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 60), int(a * 70)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 70), int(a * 70)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 70), int(a * 70)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 40), int(a * 50)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 40), int(a * 50)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 50), int(a * 50)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 50), int(a * 50)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 60), int(a * 50)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 60), int(a * 50)), int(a * 20), 1)
+    circle(image_tree, GREEN_BLACK, (int(a * 50), int(a * 30)), int(a * 20))
+    circle(image_tree, BLACK, (int(a * 50), int(a * 30)), int(a * 20), 1)
+    screen.blit(image_tree, (d, e))
 
 
-def draw_cloud(surface, x_0, y_0, radius):
-    abs_x = x_0
-    for i in range(4):
-        pygame.draw.circle(surface, WHITE, (x_0 - radius, y_0), radius)
-        pygame.draw.circle(surface, BLACK, (x_0 - radius, y_0), radius, 1)
-        x_0 += radius
-    x_0 = abs_x
-    for i in range(2):
-        pygame.draw.circle(surface, WHITE, (x_0, y_0 - radius), radius)
-        pygame.draw.circle(surface, BLACK, (x_0, y_0 - radius), radius, 1)
-        x_0 += radius
+# Draw a cloud in particular place (d,e) with a given scale (a,b)
+def draw_cloud(d, e, a, b):
+    image_cloud = pygame.Surface((int(x * a), int(y * b)), pygame.SRCALPHA)
+    circle(image_cloud, WHITE, (int(a * 30), int(a * 100)), int(a * 30))
+    circle(image_cloud, BLACK, (int(a * 30), int(a * 100)), int(a * 30), 1)
+    circle(image_cloud, WHITE, (int(a * 60), int(a * 100)), int(a * 30))
+    circle(image_cloud, BLACK, (int(a * 60), int(a * 100)), int(a * 30), 1)
+    circle(image_cloud, WHITE, (int(a * 90), int(a * 100)), int(a * 30))
+    circle(image_cloud, BLACK, (int(a * 90), int(a * 100)), int(a * 30), 1)
+    circle(image_cloud, WHITE, (int(a * 120), int(a * 100)), int(a * 30))
+    circle(image_cloud, BLACK, (int(a * 120), int(a * 100)), int(a * 30), 1)
+    circle(image_cloud, WHITE, (int(a * 60), int(a * 70)), int(a * 30))
+    circle(image_cloud, BLACK, (int(a * 60), int(a * 70)), int(a * 30), 1)
+    circle(image_cloud, WHITE, (int(a * 90), int(a * 70)), int(a * 30))
+    circle(image_cloud, BLACK, (int(a * 90), int(a * 70)), int(a * 30), 1)
+    screen.blit(image_cloud, (d, e))
 
 
-def draw_house(screen, x_0, y_0, width, height):
-    pygame.draw.rect(screen, BROWN, (x_0, y_0, width, height))
-    pygame.draw.rect(screen, LIGHTBLUE_LAS_2, (x_0 + width // 3, y_0 + height // 3, width // 3, height // 3))
-    pygame.draw.polygon(screen, PINK, [(x_0, y_0), (x_0 + width // 2, y_0 - width // 2), (x_0 + width, y_0)])
+# Draw a house in particular place (d,e) with a given scale (a,b)
+def draw_house(d, e, a, b):
+    image_house = pygame.Surface((int(x * a), int(y * b)))
+    image_house.set_colorkey(BLACK)
+    image_house.set_alpha(255)
+    rect(image_house, BROWN, (int(100 * a), int(200 * b), int(100 * a), int(100 * b)))
+    rect(image_house, LIGHTBLUE_LAS_2, (int(135 * a), int(230 * b), int(30 * a), int(30 * a)))
+    polygon(image_house, PINK, [(int(100 * a), int(200 * b)), (int(150 * a), int(150 * b)),
+                                (int(200 * a), int(200 * b))])
+    screen.blit(image_house, (d, e))
 
 
-def draw_sun(surface, x_0, y_0, color, radius):
+# Draw a sun in particular place (d, e) with a given scale (a,b)
+def draw_sun(d, e, a, b):
+    image_sun = pygame.Surface((int(x * a), int(y * b)), pygame.SRCALPHA)
     phi = 0
     for i in range(360):
-        pygame.draw.polygon(surface, color, ((x_0 + 5 - int(radius * np.cos(2 * np.pi / 3 - phi)),
-                                              y_0 + 5 + int(radius * np.sin(2 * np.pi / 3 - phi))),
-                                             (x_0 + 5 + int(radius * np.sin(phi)),
-                                              y_0 + 5 - int(radius * np.cos(phi)) // 4),
-                                             (x_0 + 5 + int(radius * np.cos(2 * np.pi / 3 + phi)),
-                                              y_0 + 5 + int(radius * np.sin(2 * np.pi / 3 + phi)))))
-        phi += 10
+        polygon(image_sun, PINK_LIGHT,
+                ([a * (105 - int(70 * np.cos(2 * np.pi / 3 - phi))), b * (105 + int(70 * np.sin(2 * np.pi / 3 - phi)))],
+                 [a * (105 + int(70 * np.sin(phi))), b * (105 - int(70 * np.cos(phi)) // 4)],
+                 [a * (105 + int(70 * np.cos(2 * np.pi / 3 + phi))), b *
+                  (105 + int(70 * np.sin(2 * np.pi / 3 + phi)))]))
+        phi += np.pi / 12
+    screen.blit(image_sun, (d, e))
 
 
-screen = pygame.display.set_mode((800, 800))
-screen.fill(WHITE)
+# Creating a picture with functions
+pygame.draw.rect(screen, GREEN, (0, 400, 800, 400))  # Draw a grass
+pygame.draw.rect(screen, LIGHTBLUE_LAS_1, (0, 0, 800, 400))  # Draw a sky
+draw_house(-110, 150, 1.5, 1.5)
+draw_house(330, 170, 1, 1)
+draw_tree(550, 350, 0.6, 0.6)
+draw_tree(200, 450, 1, 1)
+draw_cloud(300, 150, 1, 1)
+draw_cloud(600, 150, 0.7, 0.7)
+draw_cloud(100, 200, 1, 1)
+draw_cloud(600, 50, 0.7, 0.7)
+draw_sun(50, 50, 1, 1)
 
-pygame.draw.rect(screen, GREEN, (0, 400, 800, 400))
-pygame.draw.rect(screen, LIGHTBLUE_LAS_1, (0, 0, 800, 400))
-
-draw_house(screen, 100, 420, 150, 150)
-draw_house(screen, 400, 330, 100, 100)
-
-draw_tree(screen, 590, 380, 15, 80, GREEN_BLACK, 25, 6)
-draw_tree(screen, 330, 450, 20, 150, GREEN_BLACK, 25, 6)
-draw_cloud(screen, 400, 200, 30)
-draw_cloud(screen, 600, 250, 20)
-draw_cloud(screen, 200, 300, 34)
-draw_cloud(screen, 600, 150, 15)
-draw_sun(screen, 100, 150, PINK_LIGHT, 70)
-
-pygame.init()
-FPS = 30
-
-pygame.display.flip()
-
+# Initializing picture
 pygame.display.update()
 clock = pygame.time.Clock()
-
 finished = False
 while not finished:
     clock.tick(FPS)
