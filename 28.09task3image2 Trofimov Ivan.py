@@ -14,7 +14,6 @@ a = 1  # Scale coefficient for an abscissas' axis
 b = 1  # Scale coefficient for an ordinates' axis
 
 # Colors
-
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -85,7 +84,8 @@ def draw_house(d, e, a, b):
     image_house.set_colorkey(BLACK)
     image_house.set_alpha(255)
     rect(image_house, BROWN, (int(100 * a), int(200 * b), int(100 * a), int(100 * b)))
-    rect(image_house, LIGHTBLUE_LAS_2, (int(135 * a), int(230 * b), int(30 * a), int(30 * a)))
+    rect(image_house, LIGHTBLUE_LAS_2, (int(135 * a), int(260 * b), int(30 * a), int(30 * a)))
+    rect(image_house, LIGHTBLUE_LAS_2, (int(135 * a), int(210 * b), int(30 * a), int(30 * a)))
     polygon(image_house, PINK, [(int(100 * a), int(200 * b)), (int(150 * a), int(150 * b)),
                                 (int(200 * a), int(200 * b))])
     screen.blit(image_house, (d, e))
